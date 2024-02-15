@@ -61,7 +61,8 @@
   "scripts": {
     "lint": "eslint . --ext .mjs,.cjs",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha --check-leaks test"
+    "test": "mocha --check-leaks test",
+    "prepare": "husky"
   },
   "dependencies": {
     "bagpipe": "^0.3.5",
@@ -75,6 +76,7 @@
     "@babel/core": "^7.23.9",
     "@babel/eslint-parser": "^7.23.10",
     "@babel/preset-env": "^7.23.9",
+    "@sequencemedia/hooks": "^1.0.480",
     "cbor-sync": "^1.0.4",
     "chai": "^5.1.0",
     "core-js": "^3.36.0",
@@ -82,6 +84,7 @@
     "debug": "^4.3.4",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
+    "husky": "^9.0.11",
     "lodash.clone": "^4.5.0",
     "mocha": "^10.3.0"
   },
