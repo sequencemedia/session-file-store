@@ -1,7 +1,7 @@
 {
   "name": "@sequencemedia/session-file-store",
   "version": "0.0.0",
-  "description": "Session file store is a provision for storing session data in the session file",
+  "description": "For storing sessions on the file system",
   "keywords": [
     "session",
     "file",
