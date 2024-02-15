@@ -83,8 +83,7 @@
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
     "lodash.clone": "^4.5.0",
-    "mocha": "^10.3.0",
-    "nyc": "^15.1.0"
+    "mocha": "^10.3.0"
   },
   "imports": {
     "#where-am-i": "./where-am-i.mjs"
