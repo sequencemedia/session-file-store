@@ -1,6 +1,6 @@
 {
-  "name": "session-file-store",
-  "version": "1.5.0",
+  "name": "@sequencemedia/session-file-store",
+  "version": "0.0.0",
   "description": "Session file store is a provision for storing session data in the session file",
   "keywords": [
     "session",
@@ -9,24 +9,15 @@
     "express",
     "connect"
   ],
-  "main": "index.js",
-  "private": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/valery-barysok/session-file-store"
+  "main": "./index.mjs",
+  "type": "module",
+  "author": {
+    "name": "Jonathan Perry for Sequence Media Limited",
+    "email": "sequencemedia@sequencemedia.net",
+    "url": "https://sequencemedia.net"
   },
-  "bugs": {
-    "url": "https://github.com/valery-barysok/session-file-store/issues"
-  },
-  "homepage": "https://github.com/valery-barysok/session-file-store",
-  "files": [
-    "lib/",
-    "LICENSE",
-    "README.md",
-    "index.js"
-  ],
-  "author": "Valery Barysok <valery.barysok@gmail.com>",
   "contributors": [
+    "Valery Barysok <valery.barysok@gmail.com>",
     {
       "name": "Igor Svehla (wespen)"
     },
@@ -55,29 +46,50 @@
       "name": "Mikko Kaistinen (Laastine)"
     }
   ],
-  "scripts": {
-    "test": "mocha --reporter spec --bail --check-leaks test/",
-    "test-ci": "nyc mocha --reporter spec --check-leaks test/",
-    "test-tap": "mocha --reporter tap --check-leaks test/"
-  },
   "license": "Apache-2.0",
   "engines": {
-    "node": ">= 6"
+    "node": ">=18.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sequencemedia/session-file-store.git"
+  },
+  "homepage": "https://github.com/sequencemedia/session-file-store",
+  "bugs": {
+    "url": "https://github.com/sequencemedia/session-file-store/issues"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .mjs,.cjs",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha --check-leaks test"
   },
   "dependencies": {
     "bagpipe": "^0.3.5",
-    "fs-extra": "^8.0.1",
-    "kruptein": "^2.0.4",
+    "fs-extra": "^11.2.0",
+    "kruptein": "^3.0.6",
     "object-assign": "^4.1.1",
-    "retry": "^0.12.0",
-    "write-file-atomic": "3.0.3"
+    "retry": "^0.13.1",
+    "write-file-atomic": "^5.0.1"
   },
   "devDependencies": {
-    "cbor-sync": "^1.0.2",
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.4",
-    "nyc": "^14.1.1",
-    "lodash.clone": "^4.3.1",
-    "mocha": "^6.1.4"
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
+    "@babel/preset-env": "^7.23.9",
+    "cbor-sync": "^1.0.4",
+    "chai": "^5.1.0",
+    "core-js": "^3.36.0",
+    "coveralls": "^3.1.1",
+    "debug": "^4.3.4",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "lodash.clone": "^4.5.0",
+    "mocha": "^10.3.0",
+    "nyc": "^15.1.0"
+  },
+  "imports": {
+    "#where-am-i": "./where-am-i.mjs"
+  },
+  "exports": {
+    ".": "./index.mjs"
   }
 }

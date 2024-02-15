@@ -1,28 +1,12 @@
-############################
-# npm
-############################
+.DS_Store
+
 node_modules
-npm-debug.log
 
+# User-defined NPM configuration
+.npmrc
 
-############################
-# tmp, editor & OS files
-############################
-.tmp
-*.swo
-*.swp
-*.swn
-*.swm
-.DS_STORE
-*#
-*~
-.idea
-nbproject
+# User-defined NVM configuration
+.nvmrc
 
-
-############################
-# Other
-############################
-.node_history
-coverage
-/sessions
+# Deps
+.depsrc
