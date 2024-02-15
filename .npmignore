@@ -23,6 +23,8 @@ jsconfig.json
 # User-defined NVM configuration
 .nvmrc
 
-# Jest
-jest.config.*
-src/__tests__
+# Examples
+examples
+
+# Test
+test
