@@ -5,7 +5,7 @@ import path from 'path'
 import clone from 'lodash.clone'
 import cbor from 'cbor-sync'
 
-import * as helpers from '../lib/session-file-helpers.mjs'
+import * as helpers from '#session-file-helpers'
 
 const { expect } = chai
 

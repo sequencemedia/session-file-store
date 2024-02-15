@@ -88,6 +88,9 @@
     "mocha": "^10.3.0"
   },
   "imports": {
+    "#reap-worker": "./lib/reap-worker.mjs",
+    "#session-file-helpers": "./lib/session-file-helpers.mjs",
+    "#session-file-store": "./lib/session-file-store.mjs",
     "#where-am-i": "./where-am-i.mjs"
   },
   "exports": {

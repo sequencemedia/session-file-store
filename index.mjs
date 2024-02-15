@@ -1,1 +1,1 @@
-export { default } from './lib/session-file-store.mjs'
+export { default } from '#session-file-store'

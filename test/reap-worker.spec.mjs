@@ -5,7 +5,7 @@ import path from 'path'
 import childProcess from 'child_process'
 import clone from 'lodash.clone'
 
-import * as helpers from '../lib/session-file-helpers.mjs'
+import * as helpers from '#session-file-helpers'
 
 const { expect } = chai
 

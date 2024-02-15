@@ -3,8 +3,8 @@ import fs from 'fs-extra'
 import os from 'os'
 import path from 'path'
 
-import SessionFileStore from '../lib/session-file-store.mjs'
-import * as helpers from '../lib/session-file-helpers.mjs'
+import * as helpers from '#session-file-helpers'
+import sessionFileStore from '#session-file-store'
 
 const { expect } = chai
 
@@ -12,7 +12,7 @@ const session = {
   Store: class Store { }
 }
 
-const FileStore = SessionFileStore(session)
+const FileStore = sessionFileStore(session)
 
 const NOOP = () => {}
 
