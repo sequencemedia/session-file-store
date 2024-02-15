@@ -1,14 +1,14 @@
 {
-  "name": "file-session",
-  "version": "0.0.1",
-  "main": "app.js",
+  "name": "file-store",
+  "main": "./app.mjs",
+  "type": "module",
   "scripts": {
-    "start": "node app.js"
+    "start": "node ."
   },
   "dependencies": {
-    "express": "^4.0.0",
-    "express-session": "^1.11.1",
-    "cbor-sync": "^1.0.2",
-    "session-file-store": "*"
+    "@sequencemedia/session-file-store": "file:../..",
+    "cbor-sync": "^1.0.4",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0"
   }
 }

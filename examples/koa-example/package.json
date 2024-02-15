@@ -1,13 +1,14 @@
 {
   "name": "file-session",
-  "version": "0.0.1",
-  "main": "app.js",
+  "version": "0.0.0",
+  "main": "./app.mjs",
+  "type": "module",
   "scripts": {
-    "start": "node app.js"
+    "start": "node ."
   },
   "dependencies": {
-    "express-session": "^1.11.2",
-    "koa": "^0.9.0",
-    "session-file-store": "*"
+    "@sequencemedia/session-file-store": "file:../..",
+    "express-session": "^1.18.0",
+    "koa": "^2.15.0"
   }
 }
