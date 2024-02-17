@@ -32,7 +32,7 @@ describe('reap', () => {
 
   const SESSIONS_OPTIONS = helpers.defaults({
     path: SESSIONS_PATH,
-    logFn: NOOP
+    log: NOOP
   })
 
   const SESSION_FILE_PATH = path.join(SESSIONS_PATH, SESSION_ID + '.json')

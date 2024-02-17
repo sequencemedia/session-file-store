@@ -21,7 +21,7 @@ describe('store', () => {
 
   const SESSIONS_OPTIONS = helpers.defaults({
     path: SESSIONS_PATH,
-    logFn: NOOP,
+    log: NOOP,
     reapInterval: 10000
   })
 

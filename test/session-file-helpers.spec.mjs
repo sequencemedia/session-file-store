@@ -30,27 +30,27 @@ describe('helpers', () => {
   }
 
   const OPTIONS = helpers.defaults({
-    logFn: NOOP
+    log: NOOP
   })
 
   const SESSIONS_OPTIONS = helpers.defaults({
     path: SESSIONS_FILE_PATH,
-    logFn: NOOP
+    log: NOOP
   })
 
   const FIXTURE_SESSIONS_OPTIONS = helpers.defaults({
     path: FIXTURE_SESSIONS_FILE_PATH,
-    logFn: NOOP
+    log: NOOP
   })
 
   const FIXTURE_SESSIONS_NO_EXIST_OPTIONS = helpers.defaults({
     path: FIXTURE_SESSIONS_NO_EXIST_PATH,
-    logFn: NOOP
+    log: NOOP
   })
 
   const FALLBACK_OPTIONS = helpers.defaults({
     path: FIXTURE_SESSIONS_NO_EXIST_PATH,
-    logFn: NOOP,
+    log: NOOP,
     fallbackSessionFn: () => {
       return clone(SESSION)
     }
@@ -58,13 +58,13 @@ describe('helpers', () => {
 
   const ENCRYPT_OPTIONS = helpers.defaults({
     path: FIXTURE_SESSIONS_FILE_PATH,
-    logFn: NOOP,
+    log: NOOP,
     secret: 'squirrel'
   })
 
   const CBOR_OPTIONS = helpers.defaults({
     path: FIXTURE_SESSIONS_FILE_PATH,
-    logFn: NOOP,
+    log: NOOP,
     fileExtension: '.cbor',
     secret: null,
     encoding: null,
@@ -86,7 +86,7 @@ describe('helpers', () => {
       expect(options).to.have.property('reapInterval').that.be.a('number')
       expect(options).to.have.property('reapAsync').that.be.a('boolean')
       expect(options).to.have.property('reapSyncFallback').that.be.a('boolean')
-      expect(options).to.have.property('logFn').that.be.a('function')
+      expect(options).to.have.property('log').that.be.a('function')
       expect(options).to.not.have.property('fallbackSessionFn')
       expect(options).to.not.have.property('secret')
     })
@@ -102,7 +102,7 @@ describe('helpers', () => {
         reapInterval: 4000,
         reapAsync: true,
         reapSyncFallback: true,
-        logFn: NOOP,
+        log: NOOP,
         fallbackSessionFn: NOOP,
         secret: 'keyboard cat'
       })
@@ -118,7 +118,7 @@ describe('helpers', () => {
       expect(options).to.have.property('reapInterval', 4000)
       expect(options).to.have.property('reapAsync', true)
       expect(options).to.have.property('reapSyncFallback', true)
-      expect(options).to.have.property('logFn', NOOP)
+      expect(options).to.have.property('log', NOOP)
       expect(options).to.have.property('fallbackSessionFn', NOOP)
       expect(options).to.have.property('secret', 'keyboard cat')
     })
