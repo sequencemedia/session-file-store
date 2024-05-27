@@ -64,8 +64,8 @@
   "scripts": {
     "lint": "eslint . --ext .mjs,.cjs",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha --check-leaks test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "mocha --check-leaks test"
   },
   "dependencies": {
     "bagpipe": "^0.3.5",
