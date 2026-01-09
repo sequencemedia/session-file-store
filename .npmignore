@@ -1,30 +1,32 @@
 .DS_Store
 
+node_modules
+
 .circleci
-.github
 .husky
 
 .editorconfig
-.eslintignore
-.eslintrc
 
+.github
 .gitattributes
+.gitignore
 
-.depsrc
-
-# Configuration
-babel.config.cjs
-tsconfig.json
-jsconfig.json
-
-# User-defined NPM configuration
+# NPM
+.npmignore
 .npmrc
 
-# User-defined NVM configuration
+# NVM
 .nvmrc
 
-# Examples
-examples
+# Deps
+.depsrc
 
-# Test
+# Hooks
+.husky/hooks
+
+# ESLint
+eslint.config.*
+
+# Mocha
 test
+examples
