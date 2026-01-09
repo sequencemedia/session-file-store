@@ -3,7 +3,6 @@ import fs from 'fs-extra'
 import os from 'os'
 import path from 'path'
 import childProcess from 'child_process'
-import clone from 'lodash.clone'
 
 import * as helpers from '#session-file-helpers'
 
@@ -38,8 +37,8 @@ describe('reap', () => {
   const SESSION_FILE_PATH = path.join(SESSIONS_PATH, SESSION_ID + '.json')
   const EXPIRED_SESSION_FILE_PATH = path.join(SESSIONS_PATH, EXPIRED_SESSION_ID + '.json')
 
-  const session = clone(SESSION)
-  const expiredSession = clone(SESSION)
+  const session = structuredClone(SESSION)
+  const expiredSession = structuredClone(SESSION)
 
   session.__lastAccess = new Date().getTime()
   expiredSession.__lastAccess = 0

@@ -2,7 +2,6 @@ import * as chai from 'chai'
 import fs from 'fs-extra'
 import os from 'os'
 import path from 'path'
-import clone from 'lodash.clone'
 import cbor from 'cbor-sync'
 
 import * as helpers from '#session-file-helpers'
@@ -52,7 +51,7 @@ describe('helpers', () => {
     path: FIXTURE_SESSIONS_NO_EXIST_PATH,
     log: NOOP,
     fallbackSessionFn: () => {
-      return clone(SESSION)
+      return structuredClone(SESSION)
     }
   })
 
@@ -299,7 +298,7 @@ describe('helpers', () => {
     })
 
     it('should succeeds when valid non-exired session file exists with cbor', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
       // first we create a session file in order to read a valid one later
@@ -320,7 +319,7 @@ describe('helpers', () => {
     })
 
     it('validates encrypted session', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
       helpers.set(SESSION_ID, session, ENCRYPT_OPTIONS, (err, json) => {
@@ -355,7 +354,7 @@ describe('helpers', () => {
     })
 
     it('should creates new session file', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
       helpers.set(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
@@ -368,7 +367,7 @@ describe('helpers', () => {
     })
 
     it('should creates new session file with cbor', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
       helpers.set(SESSION_ID, session, CBOR_OPTIONS, (err, json) => {
@@ -381,7 +380,7 @@ describe('helpers', () => {
     })
 
     it('creates encrypted session', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
       helpers.set(SESSION_ID, session, ENCRYPT_OPTIONS, (err, json) => {
@@ -404,7 +403,7 @@ describe('helpers', () => {
     })
 
     it('should fails when no session file exists', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       helpers.touch('no_exists', session, SESSIONS_OPTIONS, (err, json) => {
         expect(err)
           .to.have.property('code', 'ENOENT')
@@ -415,7 +414,7 @@ describe('helpers', () => {
     })
 
     it('should succeeds when valid session touched', (done) => {
-      const session = clone(SESSION)
+      const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
       // first we create a session file in order to read a valid one later
@@ -518,8 +517,8 @@ describe('helpers', () => {
     const SESSION_FILE_PATH = path.join(SESSIONS_FILE_PATH, SESSION_ID + '.json')
     const EXPIRED_SESSION_FILE_PATH = path.join(SESSIONS_FILE_PATH, EXPIRED_SESSION_ID + '.json')
 
-    const session = clone(SESSION)
-    const expiredSession = clone(SESSION)
+    const session = structuredClone(SESSION)
+    const expiredSession = structuredClone(SESSION)
 
     session.__lastAccess = new Date().getTime()
     expiredSession.__lastAccess = 0
@@ -561,8 +560,8 @@ describe('helpers', () => {
     const SESSION_FILE_PATH = path.join(SESSIONS_FILE_PATH, SESSION_ID + '.json')
     const EXPIRED_SESSION_FILE_PATH = path.join(SESSIONS_FILE_PATH, EXPIRED_SESSION_ID + '.json')
 
-    const session = clone(SESSION)
-    const expiredSession = clone(SESSION)
+    const session = structuredClone(SESSION)
+    const expiredSession = structuredClone(SESSION)
 
     session.__lastAccess = new Date().getTime()
     expiredSession.__lastAccess = 0
