@@ -73,7 +73,7 @@
     "fs-extra": "^11.3.3",
     "kruptein": "3.0.8",
     "retry": "^0.13.1",
-    "write-file-atomic": "^7.0.0"
+    "write-file-atomic": "^7.0.1"
   },
   "devDependencies": {
     "@sequencemedia/eslint-config-standard": "^0.2.107",
