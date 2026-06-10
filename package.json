@@ -70,10 +70,10 @@
   "dependencies": {
     "bagpipe": "^0.3.5",
     "debug": "^4.4.3",
-    "fs-extra": "^11.3.4",
+    "fs-extra": "^11.3.5",
     "kruptein": "3.0.8",
     "retry": "^0.13.1",
-    "write-file-atomic": "^7.0.1"
+    "write-file-atomic": "^8.0.0"
   },
   "devDependencies": {
     "@sequencemedia/eslint-config-standard": "^0.2.107",
@@ -82,9 +82,9 @@
     "cbor-sync": "^1.0.4",
     "chai": "^6.2.2",
     "eslint": "9.38.0",
-    "globals": "^17.4.0",
+    "globals": "^17.6.0",
     "husky": "^9.1.7",
-    "mocha": "^11.7.5"
+    "mocha": "^11.7.6"
   },
   "imports": {
     "#reap-worker": "./lib/reap-worker.mjs",
