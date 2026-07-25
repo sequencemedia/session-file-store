@@ -70,7 +70,7 @@
   "dependencies": {
     "bagpipe": "^0.3.5",
     "debug": "^4.4.3",
-    "fs-extra": "^11.3.6",
+    "fs-extra": "^11.4.0",
     "kruptein": "3.0.8",
     "retry": "^0.13.1",
     "write-file-atomic": "^8.0.0"
