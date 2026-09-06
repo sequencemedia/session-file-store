@@ -1,6 +1,6 @@
 {
   "name": "@sequencemedia/session-file-store",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "For storing sessions on the file system",
   "keywords": [
     "session",
