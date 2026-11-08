@@ -76,8 +76,8 @@
     "write-file-atomic": "^8.0.0"
   },
   "devDependencies": {
-    "@sequencemedia/eslint-config-standard": "^0.3.1",
-    "@sequencemedia/eslint-config-typescript": "^0.2.1",
+    "@sequencemedia/eslint-config-standard": "^0.3.2",
+    "@sequencemedia/eslint-config-typescript": "^0.2.2",
     "@sequencemedia/hooks": "^1.1.155",
     "cbor-sync": "^1.0.4",
     "chai": "^6.3.0",
