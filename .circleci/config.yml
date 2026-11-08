@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Authenticate with NPM
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run:
+       - run:
           name: Install
           command: npm ci
       - run:
