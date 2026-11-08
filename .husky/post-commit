@@ -1,5 +1,8 @@
+#!/bin/bash
+
 get_package_changes () {
   local CURRENT_BRANCH
+
   CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
   git diff HEAD~1..HEAD~0 -- "origin/$CURRENT_BRANCH" package.json
@@ -11,5 +14,8 @@ has_package_changes () {
 
 if has_package_changes;
 then
-  npx cross-env DEBUG=@sequencemedia/hooks* node .husky/post-commit.mjs
+  rm -rf .husky/hooks 2> /dev/null
+  git clone https://github.com/sequencemedia/hooks.git .husky/hooks
+  npx cross-env DEBUG=@sequencemedia/hooks* node .husky/hooks/post-commit.mjs
+  rm -rf .husky/hooks
 fi
