@@ -4,13 +4,13 @@ import os from 'os'
 import path from 'path'
 import cbor from 'cbor-sync'
 
-import * as helpers from '#session-file-helpers'
+import * as utils from '#session-file-utils'
 
 const { expect } = chai
 
 const NOOP = () => {}
 
-describe('helpers', () => {
+describe('utils', () => {
   const FIXTURE_SESSIONS_FILE_PATH = path.normalize('./test/fixtures/sessions')
   const FIXTURE_SESSIONS_NO_EXIST_PATH = path.normalize('./test/fixtures/sessions_no_exist')
 
@@ -28,26 +28,26 @@ describe('helpers', () => {
     __lastAccess: 1430336255633
   }
 
-  const OPTIONS = helpers.defaults({
+  const OPTIONS = utils.defaults({
     log: NOOP
   })
 
-  const SESSIONS_OPTIONS = helpers.defaults({
+  const SESSIONS_OPTIONS = utils.defaults({
     path: SESSIONS_FILE_PATH,
     log: NOOP
   })
 
-  const FIXTURE_SESSIONS_OPTIONS = helpers.defaults({
+  const FIXTURE_SESSIONS_OPTIONS = utils.defaults({
     path: FIXTURE_SESSIONS_FILE_PATH,
     log: NOOP
   })
 
-  const FIXTURE_SESSIONS_NO_EXIST_OPTIONS = helpers.defaults({
+  const FIXTURE_SESSIONS_NO_EXIST_OPTIONS = utils.defaults({
     path: FIXTURE_SESSIONS_NO_EXIST_PATH,
     log: NOOP
   })
 
-  const FALLBACK_OPTIONS = helpers.defaults({
+  const FALLBACK_OPTIONS = utils.defaults({
     path: FIXTURE_SESSIONS_NO_EXIST_PATH,
     log: NOOP,
     fallbackSessionFn: () => {
@@ -55,13 +55,13 @@ describe('helpers', () => {
     }
   })
 
-  const ENCRYPT_OPTIONS = helpers.defaults({
+  const ENCRYPT_OPTIONS = utils.defaults({
     path: FIXTURE_SESSIONS_FILE_PATH,
     log: NOOP,
     secret: 'squirrel'
   })
 
-  const CBOR_OPTIONS = helpers.defaults({
+  const CBOR_OPTIONS = utils.defaults({
     path: FIXTURE_SESSIONS_FILE_PATH,
     log: NOOP,
     fileExtension: '.cbor',
@@ -91,7 +91,7 @@ describe('helpers', () => {
     })
 
     it('should returns provided options', () => {
-      const options = helpers.defaults({
+      const options = utils.defaults({
         path: './sessions2',
         ttl: 4000,
         retries: 0,
@@ -125,19 +125,19 @@ describe('helpers', () => {
 
   describe('#sessionId', () => {
     it('should returns session id when valid json file name is passed', () => {
-      const sessionId = helpers.sessionId(OPTIONS, 'id.json')
+      const sessionId = utils.sessionId(OPTIONS, 'id.json')
       expect(sessionId).is.equal('id')
     })
 
     it('should returns no session id when invalid file name is passed', () => {
-      const sessionId = helpers.sessionId(OPTIONS, 'id')
+      const sessionId = utils.sessionId(OPTIONS, 'id')
       expect(sessionId).is.equal('')
     })
   })
 
   describe('#sessionPath', () => {
     it('should returns session file path when base path and session id are passed', () => {
-      const sessionPath = helpers.sessionPath(OPTIONS, 'id')
+      const sessionPath = utils.sessionPath(OPTIONS, 'id')
       expect(sessionPath).to.be.a('string').and.is.equal(path.normalize('sessions/id.json'))
     })
   })
@@ -145,7 +145,7 @@ describe('helpers', () => {
   describe('#length', () => {
     describe('no destination folder exists', () => {
       it('should fails when no folder exists', (done) => {
-        helpers.length(FIXTURE_SESSIONS_NO_EXIST_OPTIONS, function (err, result) {
+        utils.length(FIXTURE_SESSIONS_NO_EXIST_OPTIONS, function (err, result) {
           expect(err)
             .to.have.property('code', 'ENOENT')
           expect(result).to.be.undefined
@@ -165,7 +165,7 @@ describe('helpers', () => {
       })
 
       it('should returns 0 when empty folder exists', (done) => {
-        helpers.length(SESSIONS_OPTIONS, function (err, result) {
+        utils.length(SESSIONS_OPTIONS, function (err, result) {
           expect(err).to.be.null
           expect(result).to.equal(0)
 
@@ -176,7 +176,7 @@ describe('helpers', () => {
 
     describe('destination folder has some session files', () => {
       it('should returns count of session files match to file pattern', (done) => {
-        helpers.length(FIXTURE_SESSIONS_OPTIONS, function (err, result) {
+        utils.length(FIXTURE_SESSIONS_OPTIONS, function (err, result) {
           expect(err).to.be.null
           expect(result).to.equal(2)
 
@@ -189,7 +189,7 @@ describe('helpers', () => {
   describe('#list', () => {
     describe('no destination folder exists', () => {
       it('should fails when no folder exists', (done) => {
-        helpers.list(FIXTURE_SESSIONS_NO_EXIST_OPTIONS, function (err, result) {
+        utils.list(FIXTURE_SESSIONS_NO_EXIST_OPTIONS, function (err, result) {
           expect(err)
             .to.have.property('code', 'ENOENT')
 
@@ -208,7 +208,7 @@ describe('helpers', () => {
       })
 
       it('should returns empty list when empty folder exists', (done) => {
-        helpers.list(SESSIONS_OPTIONS, function (err, files) {
+        utils.list(SESSIONS_OPTIONS, function (err, files) {
           expect(err).to.not.exist
           expect(files).is.empty
 
@@ -219,7 +219,7 @@ describe('helpers', () => {
 
     describe('destination folder has some session files', () => {
       it('should returns session files match to file pattern', (done) => {
-        helpers.list(FIXTURE_SESSIONS_OPTIONS, function (err, files) {
+        utils.list(FIXTURE_SESSIONS_OPTIONS, function (err, files) {
           expect(err).to.not.exist
           expect(files).to.have.length(2)
 
@@ -231,7 +231,7 @@ describe('helpers', () => {
 
   describe('#get', () => {
     it('should fails when no session file exists', (done) => {
-      helpers.get('no_exists', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
+      utils.get('no_exists', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
         expect(err)
           .to.have.property('code', 'ENOENT')
         expect(json).to.be.undefined
@@ -241,7 +241,7 @@ describe('helpers', () => {
     })
 
     it('should fails when invalid session file exists', (done) => {
-      helpers.get('2o7sOpgMqMGWem0IxddjE0DkR3-jqUPS', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
+      utils.get('2o7sOpgMqMGWem0IxddjE0DkR3-jqUPS', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
         expect(err)
           .to.have.property('code', 'ENOENT')
         expect(json).to.be.undefined
@@ -251,7 +251,7 @@ describe('helpers', () => {
     })
 
     it('should succeeds when valid expired session file exists', (done) => {
-      helpers.get('2o7sOpgMqMGWem0IxddjE0DkR3-jqUPx', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
+      utils.get('2o7sOpgMqMGWem0IxddjE0DkR3-jqUPx', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.be.null
 
@@ -260,7 +260,7 @@ describe('helpers', () => {
     })
 
     it('should succeeds with fallbackSessionFn when session file does not exist', (done) => {
-      helpers.get('2o7sOpgMqMGWem0IxddjE0DkR3-jqUPx', FALLBACK_OPTIONS, (err, json) => {
+      utils.get('2o7sOpgMqMGWem0IxddjE0DkR3-jqUPx', FALLBACK_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -274,7 +274,7 @@ describe('helpers', () => {
 
       fs.writeFileSync(emptySessionPath, Buffer.from(''))
 
-      helpers.get('empty_session', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
+      utils.get('empty_session', FIXTURE_SESSIONS_OPTIONS, (err, json) => {
         expect(err)
           .to.have.property('name', 'SyntaxError')
         expect(json).to.be.undefined
@@ -289,7 +289,7 @@ describe('helpers', () => {
     })
 
     it('should fail when valid expired session file exists with cbor', (done) => {
-      helpers.get('YH7h3CPKKWJa10-xJyEDqzbM56c8xblR', CBOR_OPTIONS, (err, json) => {
+      utils.get('YH7h3CPKKWJa10-xJyEDqzbM56c8xblR', CBOR_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.be.null
 
@@ -302,13 +302,13 @@ describe('helpers', () => {
       session.__lastAccess = 0
 
       // first we create a session file in order to read a valid one later
-      helpers.set(SESSION_ID, session, CBOR_OPTIONS, (err, json) => {
+      utils.set(SESSION_ID, session, CBOR_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
 
         // read the valid json file
-        helpers.get(SESSION_ID, CBOR_OPTIONS, (err, json) => {
+        utils.get(SESSION_ID, CBOR_OPTIONS, (err, json) => {
           expect(err).to.be.null
           expect(json).to.have.property('__lastAccess')
           expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -322,12 +322,12 @@ describe('helpers', () => {
       const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
-      helpers.set(SESSION_ID, session, ENCRYPT_OPTIONS, (err, json) => {
+      utils.set(SESSION_ID, session, ENCRYPT_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
 
-        helpers.get(SESSION_ID, CBOR_OPTIONS, (err, json) => {
+        utils.get(SESSION_ID, CBOR_OPTIONS, (err, json) => {
           expect(err).to.be.null
           expect(json).to.have.property('__lastAccess')
           expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -357,7 +357,7 @@ describe('helpers', () => {
       const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
-      helpers.set(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
+      utils.set(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -370,7 +370,7 @@ describe('helpers', () => {
       const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
-      helpers.set(SESSION_ID, session, CBOR_OPTIONS, (err, json) => {
+      utils.set(SESSION_ID, session, CBOR_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -383,7 +383,7 @@ describe('helpers', () => {
       const session = structuredClone(SESSION)
       session.__lastAccess = 0
 
-      helpers.set(SESSION_ID, session, ENCRYPT_OPTIONS, (err, json) => {
+      utils.set(SESSION_ID, session, ENCRYPT_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -404,7 +404,7 @@ describe('helpers', () => {
 
     it('should fails when no session file exists', (done) => {
       const session = structuredClone(SESSION)
-      helpers.touch('no_exists', session, SESSIONS_OPTIONS, (err, json) => {
+      utils.touch('no_exists', session, SESSIONS_OPTIONS, (err, json) => {
         expect(err)
           .to.have.property('code', 'ENOENT')
         expect(json).to.be.null
@@ -418,12 +418,12 @@ describe('helpers', () => {
       session.__lastAccess = 0
 
       // first we create a session file in order to read a valid one later
-      helpers.set(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
+      utils.set(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
         expect(err).to.be.null
         expect(json).to.have.property('__lastAccess')
         expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
 
-        helpers.touch(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
+        utils.touch(SESSION_ID, session, SESSIONS_OPTIONS, (err, json) => {
           expect(err).to.be.null
           expect(json).to.have.property('__lastAccess')
           expect(json.__lastAccess).to.not.equal(SESSION.__lastAccess)
@@ -448,7 +448,7 @@ describe('helpers', () => {
     })
 
     it('should destroys session file', (done) => {
-      helpers.destroy(SESSION_ID, SESSIONS_OPTIONS, (err) => {
+      utils.destroy(SESSION_ID, SESSIONS_OPTIONS, (err) => {
         expect(err).to.be.undefined
 
         done()
@@ -459,7 +459,7 @@ describe('helpers', () => {
   describe('#clear', () => {
     describe('no destination folder exists', () => {
       it('should fails when no folder exists', (done) => {
-        helpers.clear(FIXTURE_SESSIONS_NO_EXIST_OPTIONS, (err) => {
+        utils.clear(FIXTURE_SESSIONS_NO_EXIST_OPTIONS, (err) => {
           expect(err)
             .to.be.an('array')
             .with.deep.property('0')
@@ -480,7 +480,7 @@ describe('helpers', () => {
       })
 
       it('should returns 0 when empty folder exists', (done) => {
-        helpers.clear(SESSIONS_OPTIONS, (err) => {
+        utils.clear(SESSIONS_OPTIONS, (err) => {
           expect(err).to.be.undefined
 
           done()
@@ -502,7 +502,7 @@ describe('helpers', () => {
       })
 
       it('should destroys session file', (done) => {
-        helpers.clear(SESSIONS_OPTIONS, (err) => {
+        utils.clear(SESSIONS_OPTIONS, (err) => {
           expect(err).to.be.undefined
 
           done()
@@ -536,7 +536,7 @@ describe('helpers', () => {
     })
 
     it('should be expired', (done) => {
-      helpers.expired(EXPIRED_SESSION_ID, SESSIONS_OPTIONS, (err, expired) => {
+      utils.expired(EXPIRED_SESSION_ID, SESSIONS_OPTIONS, (err, expired) => {
         expect(err).to.be.null
         expect(expired).to.be.true
 
@@ -545,7 +545,7 @@ describe('helpers', () => {
     })
 
     it('should not be expired', (done) => {
-      helpers.expired(SESSION_ID, SESSIONS_OPTIONS, (err, expired) => {
+      utils.expired(SESSION_ID, SESSIONS_OPTIONS, (err, expired) => {
         expect(err).to.be.null
         expect(expired).to.be.false
 
@@ -579,7 +579,7 @@ describe('helpers', () => {
     })
 
     it('should be succeed', (done) => {
-      helpers.destroyExpired(SESSION_ID, SESSIONS_OPTIONS, (err) => {
+      utils.destroyExpired(SESSION_ID, SESSIONS_OPTIONS, (err) => {
         expect(err).to.be.undefined
 
         done()

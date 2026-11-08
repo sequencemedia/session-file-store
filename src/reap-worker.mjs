@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-import * as helpers from '#session-file-helpers'
+import * as utils from '#session-file-utils'
 
-const options = helpers.defaults({
+const options = utils.defaults({
   path: process.argv[2],
   ttl: process.argv[3]
 })
 
 if (options.path) {
   options.log('Deleting expired sessions')
-  helpers.reap(options)
+  utils.reap(options)
 } else {
   options.log('Reap worker started with invalid path')
   process.exit(1)

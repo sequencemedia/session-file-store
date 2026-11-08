@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import os from 'os'
 import path from 'path'
 
-import * as helpers from '#session-file-helpers'
+import * as helpers from '#session-file-utils'
 import sessionFileStore from '#session-file-store'
 
 const { expect } = chai

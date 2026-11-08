@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 
-import * as helpers from '#session-file-helpers'
+import * as utils from '#session-file-utils'
 
 /**
  * https://github.com/expressjs/session#session-store-implementation
@@ -22,11 +22,11 @@ export default function sessionFileStore ({ Store }) {
     constructor (options = {}) {
       super(options)
 
-      this.options = helpers.defaults(options)
+      this.options = utils.defaults(options)
 
       fs.mkdirsSync(this.options.path)
 
-      helpers.scheduleReap(this.options)
+      utils.scheduleReap(this.options)
 
       Object.assign(options, this.options)
     }
@@ -40,7 +40,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     get (sessionId, done) {
-      helpers.get(sessionId, this.options, done)
+      utils.get(sessionId, this.options, done)
     }
 
     /**
@@ -53,7 +53,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     set (sessionId, session, done) {
-      helpers.set(sessionId, session, this.options, done)
+      utils.set(sessionId, session, this.options, done)
     }
 
     /**
@@ -66,7 +66,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     touch (sessionId, session, done) {
-      helpers.touch(sessionId, session, this.options, done)
+      utils.touch(sessionId, session, this.options, done)
     }
 
     /**
@@ -78,7 +78,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     destroy (sessionId, done) {
-      helpers.destroy(sessionId, this.options, done)
+      utils.destroy(sessionId, this.options, done)
     }
 
     /**
@@ -89,7 +89,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     length (done) {
-      helpers.length(this.options, done)
+      utils.length(this.options, done)
     }
 
     /**
@@ -100,7 +100,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     clear (done) {
-      helpers.clear(this.options, done)
+      utils.clear(this.options, done)
     }
 
     /**
@@ -111,7 +111,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     list (done) {
-      helpers.list(this.options, done)
+      utils.list(this.options, done)
     }
 
     /**
@@ -123,7 +123,7 @@ export default function sessionFileStore ({ Store }) {
      * @api public
      */
     expired (sessionId, done) {
-      helpers.expired(sessionId, this.options, done)
+      utils.expired(sessionId, this.options, done)
     }
   }
 }

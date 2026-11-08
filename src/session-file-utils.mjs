@@ -13,7 +13,7 @@ import WHEREAMI from '#where-am-i'
 
 const isWindows = process.platform === 'win32'
 
-const log = debug('@sequencemedia/session-file-store')
+const log = debug('@sequencemedia/session-file-utils')
 
 export const DEFAULTS = {
   path: './sessions',
@@ -131,9 +131,9 @@ export function asyncReap (options, done = () => {}) {
   }
 
   if (isWindows) {
-    childProcess.execFile('node', [join(WHEREAMI, './lib/reap-worker.mjs'), options.path, options.ttl], execDone)
+    childProcess.execFile('node', [join(WHEREAMI, './src/reap-worker.mjs'), options.path, options.ttl], execDone)
   } else {
-    childProcess.execFile(join(WHEREAMI, './lib/reap-worker.mjs'), [options.path, options.ttl], execDone)
+    childProcess.execFile(join(WHEREAMI, './src/reap-worker.mjs'), [options.path, options.ttl], execDone)
   }
 }
 

@@ -4,7 +4,7 @@ import os from 'os'
 import path from 'path'
 import childProcess from 'child_process'
 
-import * as helpers from '#session-file-helpers'
+import * as utils from '#session-file-utils'
 
 const { expect } = chai
 
@@ -29,7 +29,7 @@ describe('reap', () => {
     __lastAccess: 1430336255633
   }
 
-  const SESSIONS_OPTIONS = helpers.defaults({
+  const SESSIONS_OPTIONS = utils.defaults({
     path: SESSIONS_PATH,
     log: NOOP
   })
@@ -56,7 +56,7 @@ describe('reap', () => {
   })
 
   it('should removes stale session file', (done) => {
-    helpers.reap(SESSIONS_OPTIONS, (err) => {
+    utils.reap(SESSIONS_OPTIONS, (err) => {
       expect(err).to.be.undefined
 
       done()
@@ -65,7 +65,7 @@ describe('reap', () => {
 
   it('should removes stale session file using distinct process', (done) => {
     function asyncReap () {
-      helpers.asyncReap(SESSIONS_OPTIONS, () => {
+      utils.asyncReap(SESSIONS_OPTIONS, () => {
         fs.stat(EXPIRED_SESSION_FILE_PATH, (err) => {
           expect(err).not.to.be.null
 
@@ -78,7 +78,7 @@ describe('reap', () => {
       asyncReap()
     } else {
       childProcess.exec('chmod +x ./reap-worker.mjs', {
-        cwd: path.resolve('./lib')
+        cwd: path.resolve('./src')
       }, () => {
         asyncReap()
       })
