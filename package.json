@@ -51,7 +51,7 @@
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=18.17.0"
+    "node": ">=22.23.4"
   },
   "repository": {
     "type": "git",
@@ -88,8 +88,8 @@
   },
   "imports": {
     "#reap-worker": "./src/reap-worker.mjs",
-    "#session-file-utils": "./src/session-file-utils.mjs",
     "#session-file-store": "./src/session-file-store.mjs",
+    "#session-file-utils": "./src/session-file-utils.mjs",
     "#where-am-i": "./where-am-i.mjs"
   },
   "exports": {
